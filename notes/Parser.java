@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Parser {
+
+    /* Atributos de entrada e saída do Parse */
     private String input;
     private ArrayList<Note> notes;
+
+    /* Constantes utilizadas no processamento de entrada */
     private static final int VOLUMEDEFAULT = 10;
     private static final int BPMINCREASE = 80;
     private static final int BPMMAX = 220;
@@ -14,7 +18,6 @@ public class Parser {
     private static final int INSTRUMENTMAX = 128;
     private static final int INSTRUMENTMIN = 0;
     private static final int VOLUMEMAX = 127;
-    private static final int VOLUMEMIN = 10;
     private static final int KEY_C = 0;
     private static final int KEY_D = 2;
     private static final int KEY_E = 4;
@@ -28,11 +31,13 @@ public class Parser {
     private static final int OCTAVEMAX = 9;
     private static final int TELEPHONE = 124;
 
+    /* Atributos temporários para geração da saída */
     private int octave;
     private int instrument;
     private int volume;
     private int bpm;
 
+    /* Construtor com entrada */
     Parser(String input) {
         this.input = input;
         this.notes = new ArrayList<Note>();
@@ -42,23 +47,27 @@ public class Parser {
         this.bpm = BPMDEFAULT;
     }
 
+    /* Processamento da entrada */
     public void processInput () {
         for (int i = 0; i < input.length(); i++) {
             switch(input.charAt(i)) {
+                /* Nota lá */
                 case 'a':
                 case 'A': {
                     Note newNote = new Note(KEY_A + (octave * OCTAVEJMP), instrument, volume, bpm);
                     notes.add(newNote);
                     break;
                 }
+                /* Nota Si */
                 case 'b':
                 case 'B': {
+                    /* Aumenta BPM em 80 unidades, limitado por constantes */
                     if (input.length () - 3 > i) {
                         if (input.charAt(i + 1) == 'P') {
                             if (input.charAt(i + 2) == 'M') {
                                 if (input.charAt(i + 3) == '+') {
-                                    if (bpm + 80 <= BPMMAX) {
-                                        bpm += 80;
+                                    if (bpm + BPMINCREASE <= BPMMAX) {
+                                        bpm += BPMINCREASE;
                                     }
                                     else {
                                         bpm = BPMMAX;
@@ -72,41 +81,48 @@ public class Parser {
                     notes.add(newNote);
                     break;
                 }
+                /* Nota Dó */
                 case 'c':
                 case 'C': {
                     Note newNote = new Note(KEY_C + (octave * OCTAVEJMP), instrument, volume, bpm);
                     notes.add(newNote);
                     break;
                 }
+                /* Nota Ré */
                 case 'd':
                 case 'D': {
                     Note newNote = new Note(KEY_D + (octave * OCTAVEJMP), instrument, volume, bpm);
                     notes.add(newNote);
                     break;
                 }
+                /* Nota Mi */
                 case 'e':
                 case 'E': {
                     Note newNote = new Note(KEY_E + (octave * OCTAVEJMP), instrument, volume, bpm);
                     notes.add(newNote);
                     break;
                 }
+                /* Nota Fá */
                 case 'f':
                 case 'F': {
                     Note newNote = new Note(KEY_F + (octave * OCTAVEJMP), instrument, volume, bpm);
                     notes.add(newNote);
                     break;
                 }
+                /* Nota Sol */
                 case 'g':
                 case 'G': {
                     Note newNote = new Note(KEY_G + (octave * OCTAVEJMP), instrument, volume, bpm);
                     notes.add(newNote);
                     break;
                 }
+                /* Silêncio ou pausa */
                 case ' ': {
                     Note newNote = new Note();
                     notes.add(newNote);
                     break;
                 }
+                /* Aumenta o volume para o DOBRO do valor atual, limitado por constantes */
                 case '+': {
                     if((2 * volume) <= VOLUMEMAX) {
                         volume *= 2;
@@ -115,9 +131,11 @@ public class Parser {
                         volume = VOLUMEMAX;
                     }
                 }
+                /* Volume volta a ser o volume original */
                 case '-': {
                     volume = VOLUMEDEFAULT;
                 }
+                /* Se caractere anterior era nota, repete nota, caso contrário, toca telefone */
                 case 'o':
                 case 'O':
                 case 'i':
@@ -140,8 +158,10 @@ public class Parser {
                     }
                     break;
                 }
+                /* Modifica a oitava */
                 case 'R': {
                     if (input.length() - 1 > i) {
+                        /* Aumenta */
                         if (input.charAt(i + 1) == '+') {
                             if (octave + 1 <= OCTAVEMAX) {
                                 octave++;
@@ -149,6 +169,7 @@ public class Parser {
                                 octave = OCTAVEMAX;
                             }
                             i++;
+                            /* Diminui */
                         } else if (input.charAt(i + 1) == '-') {
                             if (octave - 1 >= OCTAVEMIN) {
                                 octave--;
@@ -160,19 +181,23 @@ public class Parser {
                     }
                     break;
                 }
+                /* Toca uma nota aleatória */
                 case '?': {
                     Note newNote = new Note(randomKey() + (octave * OCTAVEJMP), instrument, volume, bpm);
                     notes.add(newNote);
                     break;
                 }
+                /* Troca instrumento */
                 case '\n': {
                     randomInstrument();
                     break;
                 }
+                /* Atribui valor aleatório ao BPM */
                 case ';': {
                     randomBPM();
                     break;
                 }
+                /* Não realiza nenhuma operação */
                 default:
                     break;
             }
