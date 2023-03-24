@@ -37,7 +37,7 @@ public class Parser {
     /* Construtor com entrada */
     public Parser(String input) {
         this.input = input;
-        this.notes = new ArrayList<Note>();
+        this.notes = new ArrayList<>();
         this.octave = OCTAVEDEFAULT;
         this.instrument = INSTRUMENTMIN;
         this.volume = VOLUMEDEFAULT;
@@ -103,6 +103,7 @@ public class Parser {
                     }
                     break;
                 }
+                    break;
                 /* Troca o instrumento para o AGOGO */
                 case '!': {
                     this.instrument = AGOGO;
@@ -204,5 +205,8 @@ public class Parser {
             }
         }
         return returnValue;
+    }
+    public ArrayList<Note> getNotes(){
+        return this.notes;
     }
 }
