@@ -9,7 +9,7 @@ public class Parser {
     private ArrayList<Note> notes;
 
     /* Constantes utilizadas no processamento de entrada */
-    private static final int VOLUMEDEFAULT = 10;
+    private static final int VOLUMEDEFAULT = 30;
     private static final int VOLUMEMAX = 127;
     private static final int INSTRUMENTMAX = 128;
     private static final int INSTRUMENTMIN = 0;
@@ -25,10 +25,8 @@ public class Parser {
     private static final int KEY_G = 7;
     private static final int KEY_A = 9;
     private static final int KEY_B = 11;
-    private static final int NUMNOTES = 7;
     private static final int OCTAVEJMP = 12;
     private static final int OCTAVEDEFAULT = 4;
-    private static final int OCTAVEMIN = 0;
     private static final int OCTAVEMAX = 9;
 
     /* Atributos temporários para geração da saída */
@@ -37,7 +35,7 @@ public class Parser {
     private int volume;
 
     /* Construtor com entrada */
-    Parser(String input) {
+    public Parser(String input) {
         this.input = input;
         this.notes = new ArrayList<Note>();
         this.octave = OCTAVEDEFAULT;
@@ -45,50 +43,55 @@ public class Parser {
         this.volume = VOLUMEDEFAULT;
     }
 
+    public ArrayList<Note> getNotes() {
+        return this.notes;
+    }
+
     /* Processamento da entrada */
     public void processInput() {
+        ArrayList<Note> newNotes = new ArrayList<Note>();
         for (int i = 0; i < input.length(); i++) {
             switch (input.charAt(i)) {
                 /* Nota lá */
                 case 'A': {
                     Note newNote = new Note(KEY_A + (octave * OCTAVEJMP), instrument, volume);
-                    notes.add(newNote);
+                    newNotes.add(newNote);
                     break;
                 }
                 /* Nota Si */
                 case 'B': {
                     Note newNote = new Note(KEY_B + (octave * OCTAVEJMP), instrument, volume);
-                    notes.add(newNote);
+                    newNotes.add(newNote);
                     break;
                 }
                 /* Nota Dó */
                 case 'C': {
                     Note newNote = new Note(KEY_C + (octave * OCTAVEJMP), instrument, volume);
-                    notes.add(newNote);
+                    newNotes.add(newNote);
                     break;
                 }
                 /* Nota Ré */
                 case 'D': {
                     Note newNote = new Note(KEY_D + (octave * OCTAVEJMP), instrument, volume);
-                    notes.add(newNote);
+                    newNotes.add(newNote);
                     break;
                 }
                 /* Nota Mi */
                 case 'E': {
                     Note newNote = new Note(KEY_E + (octave * OCTAVEJMP), instrument, volume);
-                    notes.add(newNote);
+                    newNotes.add(newNote);
                     break;
                 }
                 /* Nota Fá */
                 case 'F': {
                     Note newNote = new Note(KEY_F + (octave * OCTAVEJMP), instrument, volume);
-                    notes.add(newNote);
+                    newNotes.add(newNote);
                     break;
                 }
                 /* Nota Sol */
                 case 'G': {
                     Note newNote = new Note(KEY_G + (octave * OCTAVEJMP), instrument, volume);
-                    notes.add(newNote);
+                    newNotes.add(newNote);
                     break;
                 }
                 /* Aumenta o volume para o DOBRO do valor atual, caso haja overflow, volta ao default */
@@ -98,6 +101,7 @@ public class Parser {
                     } else {
                         volume = VOLUMEDEFAULT;
                     }
+                    break;
                 }
                 /* Troca o instrumento para o AGOGO */
                 case '!': {
@@ -161,22 +165,23 @@ public class Parser {
                 default: {
                     if (i > 0) {
                         if (isNote(i - 1)) {
-                            Note newNote = new Note(notes.get(notes.size() - 1));
-                            notes.add(newNote);
+                            Note newNote = new Note(newNotes.get(newNotes.size() - 1));
+                            newNotes.add(newNote);
                         } else {
                             Note newNote = new Note();
-                            notes.add(newNote);
+                            newNotes.add(newNote);
                             break;
                         }
                     } else {
                         Note newNote = new Note();
-                        notes.add(newNote);
+                        newNotes.add(newNote);
                         break;
                     }
                     break;
                 }
             }
         }
+        notes = newNotes;
     }
 
     /* Função que testa se o caractere passado no input era uma nota (A-G) */
