@@ -14,9 +14,9 @@ public class Note {
 
     /* Construtor vazio para ser utilizado como abstração de entidades relacionadas a pausa */
     Note() {
-        this.key = -1;
-        this.instrument = -1;
-        this.volume = -1;
+        this.key = 0;
+        this.instrument = 0;
+        this.volume = 0;
     }
 
     /* Construtor que copia uma Note */
