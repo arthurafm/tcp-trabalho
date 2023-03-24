@@ -9,7 +9,7 @@ public class Parser {
     private ArrayList<Note> notes;
 
     /* Constantes utilizadas no processamento de entrada */
-    private static final int VOLUMEDEFAULT = 10;
+    private static final int VOLUMEDEFAULT = 30;
     private static final int VOLUMEMAX = 127;
     private static final int INSTRUMENTMAX = 128;
     private static final int INSTRUMENTMIN = 0;
@@ -25,10 +25,8 @@ public class Parser {
     private static final int KEY_G = 7;
     private static final int KEY_A = 9;
     private static final int KEY_B = 11;
-    private static final int NUMNOTES = 7;
     private static final int OCTAVEJMP = 12;
     private static final int OCTAVEDEFAULT = 4;
-    private static final int OCTAVEMIN = 0;
     private static final int OCTAVEMAX = 9;
 
     /* Atributos temporários para geração da saída */
@@ -37,9 +35,9 @@ public class Parser {
     private int volume;
 
     /* Construtor com entrada */
-    Parser(String input) {
+    public Parser(String input) {
         this.input = input;
-        this.notes = new ArrayList<Note>();
+        this.notes = new ArrayList<>();
         this.octave = OCTAVEDEFAULT;
         this.instrument = INSTRUMENTMIN;
         this.volume = VOLUMEDEFAULT;
@@ -99,6 +97,7 @@ public class Parser {
                         volume = VOLUMEDEFAULT;
                     }
                 }
+                    break;
                 /* Troca o instrumento para o AGOGO */
                 case '!': {
                     this.instrument = AGOGO;
@@ -199,5 +198,8 @@ public class Parser {
             }
         }
         return returnValue;
+    }
+    public ArrayList<Note> getNotes(){
+        return this.notes;
     }
 }
