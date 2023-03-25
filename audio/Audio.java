@@ -14,20 +14,20 @@ public class Audio extends Parser {
 
     public Audio(String input) {
         super(input);
-        this.pattern = new Pattern();
-    }
-
-    public void makeMusic(){
         super.processInput();
-        Player player = new Player();
+        this.pattern = new Pattern();
         Pattern pattern = new Pattern();
         for (int i = 0; i < super.getNotes().size(); i++){
             Pattern pattern2 = new Pattern(":CON(7, " + super.getNotes().get(i).getVolume() + ") " + super.getNotes().get(i).getKey());
             pattern2.setInstrument(super.getNotes().get(i).getInstrument());
             pattern.add(pattern2);
         }
-        player.play(pattern);
         this.pattern = pattern;
+    }
+
+    public void playMusic(){
+        Player player = new Player();
+        player.play(this.pattern);
     }
 
     public void saveMidiFile(){

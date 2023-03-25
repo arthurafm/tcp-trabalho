@@ -6,14 +6,14 @@ public class Note {
     private int volume;
 
     /* Construtor com todos os parâmetros definidos */
-    Note(int key, int instrument, int volume) {
+    public Note(int key, int instrument, int volume) {
         this.key = key;
         this.instrument = instrument;
         this.volume = volume;
     }
 
     /* Construtor vazio para ser utilizado como abstração de entidades relacionadas a pausa */
-    Note() {
+    public Note() {
         this.key = 0;
         this.instrument = 0;
         this.volume = 0;
