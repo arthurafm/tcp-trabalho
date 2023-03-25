@@ -147,6 +147,7 @@ public class Parser {
                     break;
                 }
                 /* Troca o instrumento para TUBULAR BELLS */
+                case '\r':
                 case '\n': {
                     this.instrument = TUBULAR_BELLS;
                     break;
