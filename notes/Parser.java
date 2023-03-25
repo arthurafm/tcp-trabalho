@@ -103,7 +103,6 @@ public class Parser {
                     }
                     break;
                 }
-                    break;
                 /* Troca o instrumento para o AGOGO */
                 case '!': {
                     this.instrument = AGOGO;
@@ -205,8 +204,5 @@ public class Parser {
             }
         }
         return returnValue;
-    }
-    public ArrayList<Note> getNotes(){
-        return this.notes;
     }
 }

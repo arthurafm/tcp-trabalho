@@ -1,11 +1,12 @@
-package notes;
+package test.notes;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import notes.Note;
+import notes.Parser;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
 

@@ -1,5 +1,6 @@
-package files;
+package test.files;
 
+import files.ReadFile;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
