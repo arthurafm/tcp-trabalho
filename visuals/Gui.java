@@ -32,7 +32,6 @@ public class Gui extends javax.swing.JFrame {
                 String prompt = text.getText();
                 Audio audio = new Audio(prompt);
                 audio.playMusic();
-                text.setText("");
             }
         });
 
@@ -43,7 +42,6 @@ public class Gui extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 Audio audio = new Audio(text.getText());
                 audio.saveMidiFile();
-                text.setText("");
             }
         });
 
