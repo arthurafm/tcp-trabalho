@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 class ParserTest {
-
     private static final int VOLUMEDEFAULT = 30;
-    private static final int VOLUMEMAX = 127;
-    private static final int INSTRUMENTMAX = 128;
     private static final int INSTRUMENTMIN = 0;
     private static final int HARPSICHORD = 6;
     private static final int TUBULAR_BELLS = 14;
@@ -25,7 +22,6 @@ class ParserTest {
     private static final int KEY_B = 11;
     private static final int OCTAVEJMP = 12;
     private static final int OCTAVEDEFAULT = 4;
-    private static final int OCTAVEMAX = 9;
 
     @Test
     void processInputTest() {
@@ -110,7 +106,7 @@ class ParserTest {
         arrayExpected.add(nA_churchorgan);
         arrayExpected.add(nPause);
 
-        /* Teste */
+        /* Teste de todos os eventos propostos */
         String s = new String("ABCDEFGaaAbbBccCddDeeEffFgg A A A!ABCOA!AUA!AIAYY1A2A!.A?A.A?A.A?A\nA;A,A[[");
         Parser p = new Parser(s);
         p.processInput();

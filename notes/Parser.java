@@ -147,7 +147,7 @@ public class Parser {
                     break;
                 }
                 /* Troca o instrumento para TUBULAR BELLS */
-                case '\r':
+                case '\r': /* Para execução em Windows, na qual o Enter é lido como '/r/n' */
                 case '\n': {
                     this.instrument = TUBULAR_BELLS;
                     break;

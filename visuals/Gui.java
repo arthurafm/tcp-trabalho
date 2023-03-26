@@ -11,12 +11,9 @@ public class Gui extends javax.swing.JFrame {
     public Gui() {
         initComponents();
     }
-
-
-    @SuppressWarnings("unchecked")
                         
     private void initComponents() {
-
+        /* Declaração das estruturas da GUI */
         text = new java.awt.TextArea();
         generateMusicButton = new javax.swing.JButton();
         saveMusicButton = new javax.swing.JButton();
@@ -24,27 +21,31 @@ public class Gui extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        /* Botão de Play */
         generateMusicButton.setText("Play");
         generateMusicButton.setActionCommand("generateMusic");
         generateMusicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String prompt = text.getText();
-                Audio audio = new Audio(prompt);
+                Audio audio = new Audio(text.getText());
+                /* Toca a Pattern gerada a partir do texto lido */
                 audio.playMusic();
             }
         });
 
+        /* Botão de Salvar Arquivo MIDI */
         saveMusicButton.setText("Save MIDI File");
         saveMusicButton.setActionCommand("saveMusic");
         saveMusicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Audio audio = new Audio(text.getText());
+                /* Salva a Pattern gerada a partir do texto lido */
                 audio.saveMidiFile();
             }
         });
 
+        /* Botão de Ler Arquivo de Texto */
         openMusicButton.setText("Read Text File");
         openMusicButton.setActionCommand("openMusic");
         openMusicButton.addActionListener(new ActionListener() {
@@ -52,10 +53,12 @@ public class Gui extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 ReadFile readFile = new ReadFile();
                 String textToMusic = readFile.read();
+                /* O conteúdo do arquivo lido é concatenado com o que já existe na caixa de texto */
                 text.setText(text.getText() + textToMusic);
             }
         });
 
+        /* Geração do layout */
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,10 +87,6 @@ public class Gui extends javax.swing.JFrame {
         );
 
         pack();
-    }
-
-    public static void generateMusic(){
-
     }
 
     private static javax.swing.JButton generateMusicButton;

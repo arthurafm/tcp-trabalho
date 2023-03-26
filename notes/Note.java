@@ -1,5 +1,6 @@
 package notes;
 
+/* Classe para abstração da unidade do objeto que será manipulado pela classe Audio */
 public class Note {
     private int key;
     private int instrument;
