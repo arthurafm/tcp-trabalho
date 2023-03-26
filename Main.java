@@ -1,3 +1,5 @@
+package org.example;
+
 import visuals.Gui;
 
 public class Main {

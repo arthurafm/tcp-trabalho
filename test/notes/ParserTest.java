@@ -1,16 +1,13 @@
-package test.notes;
+package notes;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import notes.Note;
-import notes.Parser;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 class ParserTest {
 
-    private static final int VOLUMEDEFAULT = 10;
+    private static final int VOLUMEDEFAULT = 30;
     private static final int VOLUMEMAX = 127;
     private static final int INSTRUMENTMAX = 128;
     private static final int INSTRUMENTMIN = 0;
@@ -43,7 +40,6 @@ class ParserTest {
         Note nPause = new Note();
         Note nA_2vol = new Note((OCTAVEDEFAULT * OCTAVEJMP) + KEY_A, INSTRUMENTMIN, 2*VOLUMEDEFAULT);
         Note nA_4vol = new Note((OCTAVEDEFAULT * OCTAVEJMP) + KEY_A, INSTRUMENTMIN, 4*VOLUMEDEFAULT);
-        Note nA_8vol = new Note((OCTAVEDEFAULT * OCTAVEJMP) + KEY_A, INSTRUMENTMIN, 8*VOLUMEDEFAULT);
         Note nA_agogo = new Note((OCTAVEDEFAULT * OCTAVEJMP) + KEY_A, AGOGO, VOLUMEDEFAULT);
         Note nB_agogo = new Note((OCTAVEDEFAULT * OCTAVEJMP) + KEY_B, AGOGO, VOLUMEDEFAULT);
         Note nC_agogo = new Note((OCTAVEDEFAULT * OCTAVEJMP) + KEY_C, AGOGO, VOLUMEDEFAULT);
@@ -89,7 +85,6 @@ class ParserTest {
         arrayExpected.add(nPause);
         arrayExpected.add(nA_2vol);
         arrayExpected.add(nA_4vol);
-        arrayExpected.add(nA_8vol);
         arrayExpected.add(nA);
         arrayExpected.add(nA_agogo);
         arrayExpected.add(nB_agogo);
@@ -116,7 +111,7 @@ class ParserTest {
         arrayExpected.add(nPause);
 
         /* Teste */
-        String s = new String("ABCDEFGaaAbbBccCddDeeEffFgg A A A A!ABCOA!AUA!AIAYY1A2A!.A?A.A?A.A?A\nA;A,A[[");
+        String s = new String("ABCDEFGaaAbbBccCddDeeEffFgg A A A!ABCOA!AUA!AIAYY1A2A!.A?A.A?A.A?A\nA;A,A[[");
         Parser p = new Parser(s);
         p.processInput();
         ArrayList<Note> arrayOutput = p.getNotes();
