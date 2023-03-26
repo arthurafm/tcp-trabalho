@@ -27,6 +27,19 @@ public class Note {
         this.volume = og.getVolume();
     }
 
+    /* Testa se é uma Note para pausa */
+    public boolean isRest() {
+        if (this.key == 0) {
+            if (this.instrument == 0) {
+                if (this.volume == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     /* Getter e Setters */
 
     public int getKey() {

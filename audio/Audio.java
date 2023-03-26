@@ -1,5 +1,6 @@
 package audio;
 
+import notes.Note;
 import notes.Parser;
 import org.jfugue.midi.MidiFileManager;
 import org.jfugue.pattern.Pattern;
@@ -19,8 +20,16 @@ public class Audio extends Parser {
         Pattern pattern = new Pattern();
         /* Adiciona as Note's ao Pattern */
         for (int i = 0; i < super.getNotes().size(); i++){
-            Pattern new_pattern = new Pattern(":CON(7, " + super.getNotes().get(i).getVolume() + ") " + super.getNotes().get(i).getKey());
-            new_pattern.setInstrument(super.getNotes().get(i).getInstrument());
+            Note note = super.getNotes().get(i);
+            Pattern new_pattern;
+            /* Caso a nota seja uma pausa */
+            if (note.isRest()) {
+                new_pattern = new Pattern("Rq");
+            }
+            else {
+                new_pattern = new Pattern(":CON(7, " + note.getVolume() + ") " + note.getKey());
+                new_pattern.setInstrument(note.getInstrument());
+            }
             pattern.add(new_pattern);
         }
         /* Armazena a Pattern gerada */
